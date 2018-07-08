@@ -1,0 +1,37 @@
+{% extends "layout/base.twig" %}
+{% block pageContent %}
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <h2 class="title">Full Order</h2>
+                    {% for orderer, orderEntries in order %}
+                        <h3>{{ orderer }}</h3>
+                        {% if orderEntries|first.extras %}
+                        <p class="has-text-weight-light">“{{ orderEntries|first.extras }}”</p>
+                        {% endif %}
+                            <table class="table is-fullwidth">
+                                <tbody>
+                                    {% for orderEntry in orderEntries %}
+                                        <tr>
+                                            <td style="width: 10%">
+                                                <strong>{{ orderEntry.menu_id }}&nbsp;</strong>
+                                            </td>
+                                            <td style="width: 75%">
+                                                {{ orderEntry.name }}
+                                                <p style="font-size: 14px; margin: 0; padding: 0">{{ orderEntry.description }}</p>
+                                            </td>
+                                            <td style="width: 15%">
+                                                {{ orderEntry.price }} €
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                    {% endfor %}
+                    <p>Total : <strong>{{ sum }} €</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,16 @@
+Hi there,
+
+your order session for {{ restaurant.name }} has closed. This is the full order:
+
+{% for orderer, orderEntries in order %}
+{{ orderer }}
+{% if orderEntries|first.extras %}
+Message: “{{ orderEntries|first.extras }}”
+{% endif %}
+{% for orderEntry in orderEntries %}
+- {{ orderEntry.menu_id }} | {{ orderEntry.price }} € | {{ orderEntry.name }} {{ orderEntry.description }}
+{% endfor %}
+{% endfor %}
+- Total | {{ sum }} €
+
+Good ride and bon appetit!

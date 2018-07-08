@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block title %}
+        <title>Orderli</title>
+        {% endblock %}
+        <link rel="stylesheet" href="/public/css/bulma.css">
+        <link rel="stylesheet" href="/public/css/add.css">
+        <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+    {% endblock %}
+</head>
+<body {{ bodyClass }}>
+    {% include 'partials/navigation.twig' %}
+    {% block pageContent %}
+    {% endblock %}
+    {% block foot %}
+        <script defer src="/public/js/nav.js"></script>
+    {% endblock %}  
+</body>
+</html>

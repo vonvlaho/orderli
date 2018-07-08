@@ -1,0 +1,40 @@
+{% extends "layout/base.twig" %}
+{% block pageContent %}
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <h2 class="title">Cart</h2>
+                    {% if basket %}
+                        <table class="table is-fullwidth">
+                            <tbody>
+                                {% for key,dish in basket %}
+                                    <tr>
+                                        <td>{{ dish.quantity }}</td>
+                                        <td>
+                                            <h3>{{ dish.name }}</h3>
+                                            <p class="is-small">{{ dish.description }}</p>
+                                        </td>
+                                        <td>{{ dish.price }} €</td>
+                                        <td>
+                                            <a href="{{ path_for('cart.delete', {'hash': hash}) }}?delete={{ key }}" class="delete is-small"></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>&nbsp;</td>
+                                        <td>{{ sum }} €</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    {% endif %}
+                    <div class="is-pulled-right">
+                        <a href="{{ path_for('cart.checkout', {'hash': hash}) }}" class="button is-success">Checkout</a>
+                        <a href="{{ path_for('cart.reset', {'hash': hash}) }}" class="button is-danger">Reset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

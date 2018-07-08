@@ -1,0 +1,68 @@
+{% extends "layout/base.twig" %}
+{% block pageContent %}
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    <div class="box">
+                        {% if basket %}
+                        <table class="table is-fullwidth">
+                            <tbody>
+                                {% for key,dish in basket %}
+                                    <tr>
+                                        <td>{{ dish.quantity }}</td>
+                                        <td>
+                                            <p>{{ dish.name }}</p>
+                                            <p>{{ dish.description }}</p>
+                                        </td>
+                                        <td>{{ dish.price }} €</td>
+                                    </tr>
+                                {% endfor %}
+                                <tr>
+                                    <td>Total</td>
+                                    <td>&nbsp;</td>
+                                    <td>{{ sum }} €</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        {% endif %}
+                    </div>
+                    <form action="{{ path_for('order.submit', {'hash': hash}) }}" method="post">
+                        <div class="field">
+                            <label class="label">Name</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" name="orderer" type="text" placeholder="Your name" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-user"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                            <label class="label">Email</label>
+                            <div class="control has-icons-left has-icons-right">
+                                <input name="email" class="input" type="email" placeholder="Your Email" required>
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                            <label class="label">Extra wishes</label>
+                            <textarea name="extras" class="textarea" placeholder="Your Message…" maxlength="100"></textarea>
+                        </div>
+                        <div class="field">
+                            <p class="control">
+                                <button type="submit" class="button is-success">
+                                    Submit Order
+                                </button>
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

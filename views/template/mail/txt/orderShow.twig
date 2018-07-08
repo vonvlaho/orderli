@@ -1,0 +1,12 @@
+Hi there,
+
+you placed an order for {{ restaurant.name }}. This is your order:
+
+{% for key,dish in basket %}
+- {{ dish.quantity }} | {{ dish.name }} | {{ dish.price }}
+{% endfor %}
+- Total | {{ sum }} €
+
+Your message: “{{ extras }}”
+
+Bon appetit!

@@ -1,0 +1,23 @@
+{% extends "layout/base.twig" %}
+{% block pageContent %}
+    <main>
+        <section class="section hero is-medium">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <div class="column is-half has-text-centered">
+                            <div class="content">
+                                <header>
+                                    <span class="is-size-1">🧐</span>
+                                    <h2 class="title">Oooops!</h2>
+                                    <p class="subtitle">Seems like this order session has already been closed. If you want to open an order and be your colleagues driver, you can do that by pressing the button below.</p>
+                                </header>
+                            </div>
+                            <a href="{{ path_for('index') }}" class="button is-link">Create Order Session</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

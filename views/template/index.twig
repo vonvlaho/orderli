@@ -1,0 +1,110 @@
+{% extends "layout/base.twig" %}
+{% set bodyClass = 'class=has-bg'%}
+
+{% block pageContent %}
+<main>
+    <section class="section hero is-medium">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-centered">
+                    <div class="column is-half box">
+                        <div class="content">
+                            <header>
+                                <h2 class="title">Create Order Session</h2>
+                                <p class="subtitle">You want to collect and pickup a lunch order for your friends? Start by typing in your and your friends email.</p>
+                            </header>
+                        </div>
+                        <form action="{{ path_for('order.open') }}" method="post">
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Restaurant</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <div class="select">
+                                            <select name="restaurant" required>
+                                                {% for restaurant in restaurants %}
+                                                    {% if restaurant.id > 1 %}
+                                                        <option value="{{ restaurant.id }}">{{ restaurant.name }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Driver</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control is-expanded has-icons-left">
+                                            <input class="input" name="driverName" type="text" placeholder="Drivers Name" required>
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </p>
+                                    </div>
+                                    <div class="field">
+                                        <p class="control is-expanded has-icons-left has-icons-right">
+                                            <input name="driverEmail" class="input" type="email" placeholder="Drivers Email" required>
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Friends</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control is-expanded has-icons-left has-icons-right">
+                                            <input name="recipientEmail" class="input" type="email" placeholder="Friends Email" required>
+                                            <span class="icon is-small is-left">
+                                                <i class="fas fa-envelope"></i>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field is-horizontal">
+                                <div class="field-label is-normal">
+                                    <label class="label">Ordertime</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <input id="orderTime" name="orderTime" class="input" type="time" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                var date = new Date();
+                                oneHourFromNow = ((date.getHours() === 23) ? '00:' + ('0' + date.getMinutes()).slice(-2)  :  1 + date.getHours() + ':' + ('0' + date.getMinutes()).slice(-2));
+                                document.getElementById('orderTime').value = oneHourFromNow;
+                            </script>
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <!-- Left empty for spacing -->
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <button type="submit" class="button is-success">
+                                                Open New Order
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

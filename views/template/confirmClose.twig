@@ -1,0 +1,25 @@
+{% extends "layout/base.twig" %}
+{% block pageContent %}
+    <main>
+        <section class="section hero is-medium">
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <div class="column is-half has-text-centered">
+                            <figure>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 251 251" width="150px"><style>.close-cls-1{fill:#fff}</style><circle cx="125.5" cy="125.5" r="125" fill="#ff3860"/><path d="M125.5 1c33.3 0 64.5 13 88 36.5s36.5 54.7 36.5 88-13 64.5-36.5 88-54.8 36.5-88 36.5c-33.3 0-64.5-13-88-36.5S1 158.8 1 125.5s13-64.5 36.5-88S92.2 1 125.5 1m0-1C56.2 0 0 56.2 0 125.5S56.2 251 125.5 251 251 194.8 251 125.5 194.8 0 125.5 0z" class="close-cls-1"/><g><path d="M119.5 53.6v118c0 7.7 12 7.7 12 0V68.1 53.6c0-7.8-12-7.8-12 0zM125.5 197.6c7.7 0 7.7-12 0-12s-7.7 12 0 12z" class="close-cls-1"/></g></svg>
+                            </figure>
+                            <div class="content">
+                                <header>
+                                    <h2 class="title">Caution!</h2>
+                                    <p class="subtitle">You're about to close your oder session earlier than announced. If you're 100% sure to close that session, press that button below.</p>
+                                </header>
+                            </div>
+                            <a href="{{ path_for('order.close', {'hash': hash}) }}?close=!" class="button is-danger">Definetly close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

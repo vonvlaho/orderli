@@ -1,0 +1,201 @@
+<!doctype html>
+<!--
+The MIT License (MIT)
+
+Copyright (c) [2013] [Lee Munroe]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+-->
+<html>
+<head>
+	<meta name="viewport" content="width=device-width">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Simple Transactional Email</title>
+	<style>
+		@media only screen and (max-width: 620px) {
+			table[class=body] h1 {
+				font-size: 28px !important;
+				margin-bottom: 10px !important;
+			}
+
+			table[class=body] p,
+			table[class=body] ul,
+			table[class=body] ol,
+			table[class=body] td,
+			table[class=body] span,
+			table[class=body] a {
+				font-size: 16px !important;
+			}
+
+			table[class=body] .wrapper,
+			table[class=body] .article {
+				padding: 10px !important;
+			}
+
+			table[class=body] .content {
+				padding: 0 !important;
+			}
+
+			table[class=body] .container {
+				padding: 0 !important;
+				width: 100% !important;
+			}
+
+			table[class=body] .main {
+				border-left-width: 0 !important;
+				border-radius: 0 !important;
+				border-right-width: 0 !important;
+			}
+
+			table[class=body] .btn table {
+				width: 100% !important;
+			}
+
+			table[class=body] .btn a {
+				width: 100% !important;
+			}
+
+			table[class=body] .img-responsive {
+				height: auto !important;
+				max-width: 100% !important;
+				width: auto !important;
+			}
+		}
+
+		@media all {
+			.ExternalClass {
+				width: 100%;
+			}
+
+			.ExternalClass,
+			.ExternalClass p,
+			.ExternalClass span,
+			.ExternalClass font,
+			.ExternalClass td,
+			.ExternalClass div {
+				line-height: 100%;
+			}
+
+			.apple-link a {
+				color: inherit !important;
+				font-family: inherit !important;
+				font-size: inherit !important;
+				font-weight: inherit !important;
+				line-height: inherit !important;
+				text-decoration: none !important;
+			}
+
+			.btn-primary table td:hover {
+				background-color: #22c65b !important;
+			}
+
+			.btn-primary a:hover {
+				background-color: #22c65b !important;
+				border-color: #22c65b !important;
+			}
+		}
+	</style>
+</head>
+<body class="" style="background-color: #f6f6f6; font-family: sans-serif; -webkit-font-smoothing: antialiased; font-size: 16px; line-height: 1.4; margin: 0; padding: 0; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;">
+	<table border="0" cellpadding="0" cellspacing="0" class="body" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f6f6f6; width: 100%;" width="100%" bgcolor="#f6f6f6">
+		<tr>
+			<td style="font-family: sans-serif; font-size: 16px; vertical-align: top;" valign="top">&nbsp;</td>
+			<td class="container" style="font-family: sans-serif; font-size: 16px; vertical-align: top; display: block; max-width: 580px; padding: 10px; width: 580px; Margin: 0 auto;" width="580" valign="top">
+				<div class="content" style="box-sizing: border-box; display: block; Margin: 0 auto; max-width: 580px; padding: 10px;">
+
+					<!-- START CENTERED WHITE CONTAINER -->
+					<span class="preheader" style="color: transparent; display: none; height: 0; max-height: 0; max-width: 0; opacity: 0; overflow: hidden; mso-hide: all; visibility: hidden; width: 0;">A
+						new order session has been opened. You're invited to place your order until {{ time }}</span>
+					<table class="main" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background: #fff; -webkit-box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1); box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1); color: #4a4a4a; border-radius: 5px; width: 100%;" width="100%">
+						<!-- START MAIN CONTENT AREA -->
+						<tr>
+							<td class="wrapper" style="font-family: sans-serif; font-size: 16px; vertical-align: top; box-sizing: border-box; padding: 20px;" valign="top">
+								<table border="0" cellpadding="0" cellspacing="0" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; width: 100%;" width="100%">
+									<tr>
+										<td style="font-family: sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 25px;" valign="top">
+											<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 541.19 102.6" width="200px">
+												<defs/>
+												<title>orderli</title>
+												<g id="Ebene_2" data-name="Ebene 2">
+													<g id="Ebene_1-2" data-name="Ebene 1">
+														<path d="M51.36,102.6C21.48,102.6,0,78.72,0,51.24A50.93,50.93,0,0,1,51.36,0C81.12,0,102.6,23.88,102.6,51.24S81.12,102.6,51.36,102.6Zm0-86.16a34.47,34.47,0,0,0-34.92,34.8A34.57,34.57,0,0,0,51.36,86.16a34.55,34.55,0,0,0,34.8-34.92A34.45,34.45,0,0,0,51.36,16.44Z"/>
+														<path d="M153.24,100.8,141.72,76.68a66.16,66.16,0,0,1-10.2.84h-7.44v23.4H107.64v-99h21.84C160.56,1.92,172,20,172,39.72c0,12.48-4.8,24.36-15.6,31.32l16.56,29.76ZM132,61.56c15.6,0,23.88-8.88,23.88-21.84C155.88,26.28,147.36,18,132,18h-7.92V61.56Z"/>
+														<path d="M177.36,1.8h18.72C233.52,1.8,250,24.24,250,51.12s-16.44,49.68-53.88,49.68H177.36Zm20.52,82.44c24.12,0,35.52-14.4,35.52-33.12S222,18.24,197.88,18.24H193.8v66Z"/>
+														<path d="M251.16,51.36A51.18,51.18,0,0,1,302.52,0c30.12,0,53.87,26.16,50.87,55.68h-86C268.8,73,283.32,87,302.4,87a33.57,33.57,0,0,0,31.2-20.64h17.87a51.28,51.28,0,0,1-100.31-15ZM336,41.28c-3.36-14.4-17-25.92-33.6-25.92a34.57,34.57,0,0,0-33.6,25.92Z"/>
+														<path d="M404.27,100.8,392.75,76.68a65.92,65.92,0,0,1-10.19.84h-7.44v23.4H358.68v-99h21.84C411.59,1.92,423,20,423,39.72c0,12.48-4.8,24.36-15.6,31.32L424,100.8ZM383,61.56c15.59,0,23.87-8.88,23.87-21.84C406.91,26.28,398.4,18,383,18h-7.92V61.56Z"/>
+														<path d="M446,43.2a21.48,21.48,0,1,1,21.47-21.48A21.46,21.46,0,0,1,446,43.2ZM446,5a16.68,16.68,0,1,0,16.67,16.68A16.64,16.64,0,0,0,446,5Z"/>
+														<path d="M472.56,1.92H489V85.08h33V100.8H472.56Z"/>
+														<path d="M524.63,2h16.56V100.8H524.63Z"/>
+														<circle class="cls-1" cx="445.97" cy="21.62" r="17" style="fill: #ff0;"/>
+														<circle class="cls-2" cx="448.2" cy="23.62" r="14" style="fill: #ff0202;"/>
+													</g>
+												</g>
+											</svg>
+										</td>
+									</tr>
+									<tr>
+										<td style="font-family: sans-serif; font-size: 16px; vertical-align: top;" valign="top">
+											<p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+												Hi there,</p>
+											<p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; Margin-bottom: 25px;">
+												your order for <strong>{{ restaurant }}</strong> has closed. This is the full order.</p>
+											<table border="0" cellpadding="0" cellspacing="0" class="" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;" width="100%">
+												<tbody>
+													<tr>
+														<td align="left" style="font-family: sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 15px;" valign="top">
+															fvv@posteo.de
+														</td>
+														<td align="left" style="font-family: sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 15px;" valign="top">
+															<table border="0" cellpadding="0" cellspacing="0" class="" style="border-collapse: separate; mso-table-lspace: 0pt; mso-table-rspace: 0pt; box-sizing: border-box; width: 100%;" width="100%">
+																<tbody>
+																	<tr>
+																		<td align="left" style="font-family: sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 15px;" valign="top">
+																			<strong>1&nbsp;</strong>
+																		</td>
+																		<td align="left" style="font-family: sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 15px;" valign="top">
+																			Gebratener Reis
+																			<p style="font-size: 14px; margin: 0; padding: 0">mit Hühnerfleisch, Gemüse u. Eiern</p>
+																		</td>
+																		<td align="left" style="font-family: sans-serif; font-size: 16px; vertical-align: top; padding-bottom: 15px;" valign="top">
+																			3,50€
+																		</td>
+																	</tr>
+																</tbody>
+															</table>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<p style="font-family: sans-serif; font-size: 16px; font-weight: normal; margin: 0; Margin-bottom: 15px;">
+												Good ride and bon appetit!</p>
+										</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+						<!-- END MAIN CONTENT AREA -->
+					</table>
+					<!-- END CENTERED WHITE CONTAINER -->
+				</div>
+			</td>
+			<td style="font-family: sans-serif; font-size: 16px; vertical-align: top;" valign="top">&nbsp;</td>
+		</tr>
+	</table>
+</body>
+</html>

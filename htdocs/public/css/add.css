@@ -1,0 +1,31 @@
+.has-bg {
+    min-height: 100vh;
+    background: url('../img/hero-bg.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.has-small-bg {
+    background: url('../img/hero-small-bg.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+.has-small-bg .title,
+.has-small-bg .subtitle {
+    color: #ffffff;
+}
+
+.order-table td:nth-child(2) {
+	width: 80%;
+}
+
+.order-table td a {
+    display: block;
+}
+
+.order-table td a:hover {
+    color: #3273dc;
+}
+
+table .description {
+    font-size: 0.8rem;
+}

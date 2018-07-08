@@ -1,0 +1,78 @@
+{% extends "layout/base.twig" %} 
+{% block pageContent %}
+    <main>
+        <section class="hero is-small is-bold has-small-bg">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                    {{ restaurant.name }}
+                    </h1>
+                    <a href="https://www.google.de/maps/place/{{ restaurant.adr_street }} {% if restaurant.adr_number > 0 %}{{ restaurant.adr_number }}{% endif %} {{ restaurant.adr_zip }} {{ restaurant.adr_city }}" target="_blank">
+                        <h2 class="subtitle">{{ restaurant.adr_street }} {% if restaurant.adr_number > 0 %}{{ restaurant.adr_number }}{% endif %} {{ restaurant.adr_zip }} {{ restaurant.adr_city }}</h2></a>
+                </div>
+            </div>
+        </section>
+        <section class="section">
+            <div class="container">
+                <h2 class="title is-6 has-text-centered">Menu Categories</h2>
+                <div class="tags is-centered">
+                    {% for category,dishes in menu %}
+                        <span class="tag"><a href="#{{ category }}">{{ category }}</a></span>
+                    {% endfor %}
+                    </div>
+                </div>
+            </section>
+            {% if not hash %}
+                <section class="has-text-centered">
+                    <a href="{{ path_for('index') }}" class="button is-link">Create Order Session</a>
+                </section>
+            {% endif %}
+            <section class="section">
+                <div class="container">
+                    <div class="columns is-centered">
+                        <div class="column is-half">
+                            {% for category,dishes in menu %}
+                            <h2 id="{{ category }}" class="title is-4 is-spaced bd-anchor-title">{{ category }}</h2>
+                            <table class="table is-fullwidth is-hoverable order-table">
+                                <tbody>
+                                    {% for dish in dishes %}
+                                        <tr>
+                                            <td style="width: 10%">
+                                                {% if hash %}
+                                                    <a href="{{ path_for('cart.add', {'hash': hash}) }}?cart={{ dish.id }}">
+                                                {% endif %}
+                                                        {{ dish.menu_id }}
+                                                {% if hash %}
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                            <td style="width: 75%">
+                                                {% if hash %}
+                                                    <a href="{{ path_for('cart.add', {'hash': hash}) }}?cart={{ dish.id }}">
+                                                {% endif %}
+                                                        {{ dish.name }}
+                                                        <p class="description">{{ dish.description }}</p>
+                                                {% if hash %}
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                            <td style="width: 15%">
+                                                {% if hash %}
+                                                    <a href="{{ path_for('cart.add', {'hash': hash}) }}?cart={{ dish.id }}">
+                                                        {% endif %}
+                                                            {{ dish.price }} €
+                                                        {% if hash %}
+                                                    </a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+{% endblock %}

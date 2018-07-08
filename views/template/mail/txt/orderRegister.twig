@@ -1,0 +1,27 @@
+{% if driverMail %}
+    Hi {{ driver }},
+
+    you invited to an order at {{ restaurant.name }}. If you haven't already done it, don't forget to select your own lunch order.
+
+    {{ baseUrl }}/order/{{ hash }}
+
+    You set the closing time to {{time}}. To finally close the session press the link below.
+
+    {{ baseUrl }}/order/close/{{ hash }}
+
+    Thank you for your serive to the team! 🙏
+
+    Happy ordering, good ride and bon appetit!
+{% else %}
+    Hi lucky ones,
+
+    kind {{ driver.name }} has invited you to be part in an order at your favorite {{ restaurant.name }}.
+    This order session will close at {{time}}.
+    Until than you can take part and select your wishes by clicking the link below:
+
+    {{ baseUrl }}/order/{{ hash }}
+
+    And one last thing: Be gratefull and don't forget to transact your bill to {{ driver }}. 😉
+
+    Happy ordering and bon appetit!
+{% endif %}
