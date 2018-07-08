@@ -54,4 +54,17 @@ class IndexController
 
         return $this->view->render($response, 'template/index.twig', ['restaurants' => $restaurants]);
     }
+
+    /**
+     * @param Request  $request
+     * @param Response $response
+     *
+     * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
+    public function privacyAction(Request $request, Response $response)
+    {
+        return $this->view->render($response, 'template/privacy.twig');
+    }
 }

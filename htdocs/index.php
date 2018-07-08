@@ -28,6 +28,8 @@ require '../app/Configuration/Container.php';
 
 // routes
 $app->get('/', IndexController::class . ':indexAction')->setName('index');
+$app->get('/privacy', IndexController::class . ':privacyAction')->setName('privacy');
+
 
 $app->post('/register', OrderController::class . ':registerAction')->setName('order.open');
 $app->get('/order/{hash}', OrderController::class . ':selectAction')->setName('order.select');
