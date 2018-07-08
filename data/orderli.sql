@@ -227,7 +227,7 @@ CREATE TABLE IF NOT EXISTS orders (
   orderer_name varchar(255) DEFAULT '' COLLATE utf8_unicode_ci NOT NULL,
   orderer_mail varchar(255) DEFAULT '' COLLATE utf8_unicode_ci NOT NULL,
   order_time timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  extras varchar(255) DEFAULT '' COLLATE utf8_unicode_ci NOT NULL
+  extras varchar(255) DEFAULT '' COLLATE utf8_unicode_ci NOT NULL,
 
   PRIMARY KEY (id)
 
