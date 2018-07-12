@@ -1,7 +1,7 @@
 {% if driverMail %}
     Hi {{ driver }},
 
-    you invited to an order at {{ restaurant.name }}. If you haven't already done it, don't forget to select your own lunch order.
+    you invited to an order at {{ restaurant.name }}. If you haven’t already done it, don’t forget to select your own lunch order.
 
     {{ baseUrl }}/order/{{ hash }}
 
@@ -17,11 +17,11 @@
 
     kind {{ driver.name }} has invited you to be part in an order at your favorite {{ restaurant.name }}.
     This order session will close at {{time}}.
-    Until than you can take part and select your wishes by clicking the link below:
+    Until then you can take part and select your wishes by clicking the link below:
 
     {{ baseUrl }}/order/{{ hash }}
 
-    And one last thing: Be gratefull and don't forget to transact your bill to {{ driver }}. 😉
+    And one last thing: Be gratefull and don’t forget to transact your bill to {{ driver }}. 😉
 
     Happy ordering and bon appetit!
 {% endif %}
