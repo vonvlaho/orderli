@@ -48,6 +48,7 @@ class MailService
             $this->mailer->AltBody =  $txt;
 
             $this->mailer->send();
+            $this->mailer->ClearAllRecipients();
         } catch (Exception $e) {
             echo 'Message could not be sent. Mailer Error: ', $this->mailer->ErrorInfo;
         }
