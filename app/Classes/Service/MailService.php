@@ -24,20 +24,20 @@ class MailService
         $this->mailer = new PHPMailer(true);
         $this->mailer->isSMTP();
         $this->mailer->SMTPDebug = 0;
-        $this->mailer->Host = 'HOST';
-        $this->mailer->Port = 'PORT';
+        $this->mailer->Host = 'smtp.gmail.com';
+        $this->mailer->Port = 587;
         $this->mailer->SMTPSecure = 'tls';
         $this->mailer->SMTPAuth = true;
-        $this->mailer->Username = "USERNAME";
-        $this->mailer->Password = "PASSWD";
-        $this->mailer->setFrom('FROM', 'NAME');
+        $this->mailer->Username = "putorderli@gmail.com";
+        $this->mailer->Password = "-JCJ:?VC/3qC8/b\$dc3h@N5r>";
+        $this->mailer->setFrom('from@example.com', 'Orderli');
     }
 
     public function sendMail(string $recepients, string $subject, string $html, string $txt)
     {
 
         try {
-            $this->mailer->setFrom('FROM', 'NAME');
+            $this->mailer->setFrom('from@example.com', 'Orderli');
             $this->mailer->addAddress($recepients);
 
             //Content

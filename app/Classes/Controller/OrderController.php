@@ -231,6 +231,39 @@ class OrderController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
+    public function checkAction(Request $request, Response $response, array $args)
+    {
+        if ($this->pdoService->validateHash($args['hash'])) {
+            if ($this->pdoService->validateSession($args['hash'])) {
+                $order = $this->pdoService->fetchOrder($args['hash']);
+                // remove restaurant, which is the first
+                // element of the returned array,
+                // from that array and save it to var
+                $restaurant = implode(array_splice($order, 0, 1));
+                array_splice($order, 0, 2);
+                $orderSum = implode(array_splice($order, 0, 1));
+                return $this->view->render($response, 'template/orderShow.twig', [
+                    'order' => $order,
+                    'restaurant' => $restaurant,
+                    'sum' => $orderSum
+                ]);
+            } else {
+                return $this->view->render($response, 'template/noSession.twig');
+            }
+        } else {
+            return $response->withRedirect($this->container->get('router')->pathFor('index'));
+        }
+    }
+
+    /**
+     * @param Request  $request
+     * @param Response $response
+     * @param array    $args
+     *
+     * @return mixed
+     * @throws \Psr\Container\ContainerExceptionInterface
+     * @throws \Psr\Container\NotFoundExceptionInterface
+     */
     public function closeAction(Request $request, Response $response, array $args)
     {
 

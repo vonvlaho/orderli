@@ -34,6 +34,7 @@ $app->get('/privacy', IndexController::class . ':privacyAction')->setName('priva
 $app->post('/register', OrderController::class . ':registerAction')->setName('order.open');
 $app->get('/order/{hash}', OrderController::class . ':selectAction')->setName('order.select');
 $app->post('/order/submit/{hash}', OrderController::class . ':submitAction')->setName('order.submit');
+$app->get('/order/check/{hash}', OrderController::class . ':checkAction')->setName('order.check');
 $app->get('/order/close/{hash}', OrderController::class . ':closeAction')->setName('order.close');
 
 $app->get('/menus', MenuController::class . ':listMenusAction')->setName('menus');
