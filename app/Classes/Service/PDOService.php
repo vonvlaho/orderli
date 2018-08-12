@@ -206,7 +206,7 @@ class PDOService extends PDO
         menu.description, 
         menu.price
         FROM orders
-        LEFT JOIN menu ON orders.menu_id = menu.menu_id
+        LEFT JOIN menu ON orders.menu_id = menu.id
         LEFT JOIN order_sessions ON orders.hash = order_sessions.hash
         LEFT JOIN restaurants ON menu.restaurant_id = restaurants.id
         WHERE orders.hash = :hash

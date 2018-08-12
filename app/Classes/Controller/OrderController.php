@@ -163,9 +163,7 @@ class OrderController
     {
 
         if ($this->pdoService->validateHash($args['hash'])) {
-
             if ($this->pdoService->validateSession($args['hash'])) {
-
                 if (CartStorageService::count() > 0) {
                     // Prepare full order details
                     $basket = CartStorageService::get();
@@ -178,7 +176,7 @@ class OrderController
 
                     // fetch extras string and check length
                     $extras = $request->getParam('extras');
-                    $extras = (strlen($extras) > 100) ? substr($extras,0,100).'...' : $extras;
+                    $extras = (strlen($extras) > 100) ? substr($extras, 0, 100).'...' : $extras;
 
                     // insert full order details for every ordered dish into orders table
                     foreach ($menuIds as $menuId) {
@@ -209,10 +207,13 @@ class OrderController
 
                     return $this->view->render($response, 'template/success.twig');
                 } else {
-                    return $response->withRedirect($this->container->get('router')->pathFor('order.select',
-                        ['hash' => $args['hash']]));
+                    return $response->withRedirect(
+                        $this->container->get('router')->pathFor(
+                            'order.select',
+                            ['hash' => $args['hash']]
+                        )
+                    );
                 }
-
             } else {
                 return $this->view->render($response, 'template/noSession.twig');
             }
@@ -238,7 +239,6 @@ class OrderController
                 $order = $this->pdoService->fetchOrder($args['hash']);
 
                 if ($order['expire_time'] <= date('Y-m-d H:i:s') || $request->getParam('close') === '!') {
-
                     // remove restaurant and driver_mail, which are the first
                     // and second element of the returned array,
                     // from that array and save it to vars
