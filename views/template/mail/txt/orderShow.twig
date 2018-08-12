@@ -7,6 +7,6 @@ you placed an order for {{ restaurant.name }}. This is your order:
 {% endfor %}
 - Total | {{ sum }} €
 
-Your message: “{{ extras }}”
+{% if extras %}Your message: “{{ extras }}”{% endif %}
 
 Bon appetit!
