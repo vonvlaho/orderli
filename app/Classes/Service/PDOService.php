@@ -152,14 +152,15 @@ class PDOService extends PDO
         return (int)$stmt->fetch()['restaurant_id'];
     }
 
-    public function fetchOrderSession(string $hash) {
+    public function fetchOrderSession(string $hash)
+    {
         $stmt = $this->prepare("SELECT * FROM order_sessions WHERE hash = :hash");
 
         $stmt->bindParam(':hash', $hash);
 
         $this->run($stmt);
 
-        return $stmt->fetch();
+        return $stmt->fetchAll();
     }
 
     public function validateHash(string $hash)
