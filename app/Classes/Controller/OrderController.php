@@ -53,65 +53,84 @@ class OrderController
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    public function registerAction(Request $request, Response $response)
+    public function registerAction(Request $request, Response $response, array $args)
     {
-
         $baseUrl = $request->getUri()->getBaseUrl();
 
         // fetch form input
         $driverName = $request->getParam('driverName');
         $driverEmail = $request->getParam('driverEmail');
-        $recipientEmail = $request->getParam('recipientEmail');
+        $recipientEmail = preg_split("/[\s,;]+/", $request->getParam('recipientEmail'));
         $orderTime = $request->getParam('orderTime');
         $restaurantId = (int)$request->getParam('restaurant');
         $restaurant = $this->pdoService->getRestaurant($restaurantId);
 
-        // generate order hash
-        $hash = hash('md4', $driverEmail . date('YmdHis'));
+        if ($this->pdoService->validateMailAdressess($recipientEmail)) {
+            // generate order hash
+            $hash = hash('md4', $driverEmail . date('YmdHis'));
 
-        // convert input time to db format
-        $expireTime = date('Y-m-d H:i:s', strtotime($orderTime));
+            // convert input time to db format
+            $expireTime = date('Y-m-d H:i:s', strtotime($orderTime));
 
-        // insert order sessions params into db
-        $this->pdoService->initiateOrder($hash, $restaurantId, $driverName, $driverEmail, $recipientEmail, $expireTime);
+            // insert order sessions params into db
+            $this->pdoService->initiateOrder(
+                $hash,
+                $restaurantId,
+                $driverName,
+                $driverEmail,
+                implode(",", $recipientEmail),
+                $expireTime
+            );
 
-        // prepare initiation mail
-        $mailSubject = 'Open Order';
-        $mailHtml = $this->view->fetch('template/mail/orderRegister.twig', [
-            'driver' => $driverName,
-            'restaurant' => $restaurant,
-            'time' => $orderTime,
-            'hash' => $hash,
-            'baseUrl' => $baseUrl
-        ]);
-        $mailTxt = $this->view->fetch('template/mail/txt/orderRegister.twig', [
-            'driver' => $driverName,
-            'restaurant' => $restaurant,
-            'time' => $orderTime,
-            'hash' => $hash,
-            'baseUrl' => $baseUrl
-        ]);
+            // prepare initiation mail
+            $mailSubject = 'Open Order';
+            $mailHtml = $this->view->fetch('template/mail/orderRegister.twig', [
+                'driver' => $driverName,
+                'restaurant' => $restaurant,
+                'time' => $orderTime,
+                'hash' => $hash,
+                'baseUrl' => $baseUrl
+            ]);
+            $mailTxt = $this->view->fetch('template/mail/txt/orderRegister.twig', [
+                'driver' => $driverName,
+                'restaurant' => $restaurant,
+                'time' => $orderTime,
+                'hash' => $hash,
+                'baseUrl' => $baseUrl
+            ]);
 
-        $driverMailHtml = $this->view->fetch('template/mail/orderRegister.twig', [
-            'driverMail' => true,
-            'driver' => $driverName,
-            'restaurant' => $restaurant,
-            'time' => $orderTime,
-            'hash' => $hash,
-            'baseUrl' => $baseUrl
-        ]);
-        $driverMailTxt = $this->view->fetch('template/mail/txt/orderRegister.twig', [
-            'driverMail' => true,
-            'restaurant' => $restaurant,
-            'time' => $orderTime,
-            'hash' => $hash,
-            'baseUrl' => $baseUrl
-        ]);
+            $driverMailHtml = $this->view->fetch('template/mail/orderRegister.twig', [
+                'driverMail' => true,
+                'driver' => $driverName,
+                'restaurant' => $restaurant,
+                'time' => $orderTime,
+                'hash' => $hash,
+                'baseUrl' => $baseUrl
+            ]);
+            $driverMailTxt = $this->view->fetch('template/mail/txt/orderRegister.twig', [
+                'driverMail' => true,
+                'restaurant' => $restaurant,
+                'time' => $orderTime,
+                'hash' => $hash,
+                'baseUrl' => $baseUrl
+            ]);
 
-        $this->mailService->sendMail($recipientEmail, $mailSubject, $mailHtml, $mailTxt);
-        $this->mailService->sendMail($driverEmail, $mailSubject, $driverMailHtml, $driverMailTxt);
+            $this->mailService->sendMail($recipientEmail, $mailSubject, $mailHtml, $mailTxt, true);
+            $this->mailService->sendMail($driverEmail, $mailSubject, $driverMailHtml, $driverMailTxt);
 
-        return $response->withRedirect($this->container->get('router')->pathFor('order.select', ['hash' => $hash]));
+            return $response->withRedirect($this->container->get('router')->pathFor('order.select', ['hash' => $hash]));
+        }
+
+        $error = true;
+
+        $restaurants = $this->pdoService->getRestaurants();
+
+        return $this->view->render(
+            $response,
+            'template/index.twig',
+            ['restaurants' => $restaurants,
+            'error' => $error]
+        );
     }
 
     /**
@@ -139,8 +158,16 @@ class OrderController
 
                 $cartCount = CartStorageService::count();
 
-                return $this->view->render($response, 'template/menu.twig',
-                    ['menu' => $menu, 'cartCount' => $cartCount, 'restaurant' => $restaurant, 'hash' => $args['hash']]);
+                return $this->view->render(
+                    $response,
+                    'template/menu.twig',
+                    [
+                        'menu' => $menu,
+                        'cartCount' => $cartCount,
+                        'restaurant' => $restaurant,
+                        'hash' => $args['hash']
+                    ]
+                );
             } else {
                 return $this->view->render($response, 'template/noSession.twig');
             }

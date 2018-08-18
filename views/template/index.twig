@@ -62,12 +62,12 @@
                                 </div>
                                 <div class="field-body">
                                     <div class="field">
-                                        <p class="control is-expanded has-icons-left has-icons-right">
-                                            <input name="recipientEmail" class="input" type="email" placeholder="Friends Email" required>
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-envelope"></i>
-                                            </span>
-                                        </p>
+                                        {% if error %}
+                                            <p class="help is-danger">Please type in valid E-Mail adresses.</p>
+                                            <textarea name="recipientEmail" class="input is-danger" placeholder="Friends Email" required style="height: auto;"></textarea>
+                                        {% else %}
+                                            <textarea name="recipientEmail" class="input" placeholder="Friends Email" required style="height: auto;"></textarea>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>

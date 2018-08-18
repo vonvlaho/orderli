@@ -37,7 +37,6 @@ class IndexController
         $this->container = $container;
         $this->view = $this->container->get('view');
         $this->pdoService = new PDOService();
-
     }
 
     /**

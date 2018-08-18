@@ -30,7 +30,6 @@ class PDOService extends PDO
     public function run($stmt)
     {
         try {
-
             $stmt->execute();
 
             return $stmt;
@@ -109,7 +108,6 @@ class PDOService extends PDO
         $this->run($stmt);
 
         return $stmt->fetchAll();
-
     }
 
     public function getRestaurant(int $id)
@@ -123,12 +121,21 @@ class PDOService extends PDO
         $this->run($stmt);
 
         return $stmt->fetch();
-
     }
 
-    public function initiateOrder(string $hash, int $restaurantId, string $driverName, string $driverEmail, string $recipientEmail, string $expireTime)
-    {
-        $stmt = $this->prepare("INSERT INTO order_sessions (hash, restaurant_id, driver_name, driver_mail, recepient_mail, expire_time) VALUES (:hash, :restaurant_id, :driver_name, :driver_mail, :recepient_mail, :expire_time)");
+    public function initiateOrder(
+        string $hash,
+        int $restaurantId,
+        string $driverName,
+        string $driverEmail,
+        string $recipientEmail,
+        string $expireTime
+    ) {
+        $stmt = $this->prepare(
+            "INSERT INTO order_sessions 
+            (hash, restaurant_id, driver_name, driver_mail, recepient_mail, expire_time) 
+            VALUES (:hash, :restaurant_id, :driver_name, :driver_mail, :recepient_mail, :expire_time)"
+        );
 
         $stmt->bindParam(':hash', $hash);
         $stmt->bindParam(':restaurant_id', $restaurantId);
@@ -138,7 +145,6 @@ class PDOService extends PDO
         $stmt->bindParam(':expire_time', $expireTime);
 
         $this->run($stmt);
-
     }
 
     public function getOrderRestaurant(string $hash)
@@ -160,7 +166,7 @@ class PDOService extends PDO
 
         $this->run($stmt);
 
-        return $stmt->fetchAll();
+        return $stmt->fetch();
     }
 
     public function validateHash(string $hash)
@@ -170,6 +176,8 @@ class PDOService extends PDO
         if ($session['hash']) {
             return true;
         }
+
+        return false;
     }
 
     public function validateSession(string $hash)
@@ -179,11 +187,32 @@ class PDOService extends PDO
         if ((int) $session['closed'] === 0) {
             return true;
         }
+
+        return false;
     }
+
+    public function validateMailAdressess(array $mailAdresses)
+    {
+        if (count($mailAdresses) < 51) {
+            return false;
+        }
+
+        foreach ($mailAdresses as $mailA) {
+            if (!filter_var($mailA, FILTER_VALIDATE_EMAIL)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     public function placeOrder(string $hash, int $menuId, string $ordererName, string $ordererMail, string $extras)
     {
-        $stmt = $this->prepare("INSERT INTO orders (hash, menu_id, orderer_name, orderer_mail, extras) VALUES (:hash, :menu_id, :orderer_name, :orderer_mail, :extras)");
+        $stmt = $this->prepare(
+            "INSERT INTO orders (hash, menu_id, orderer_name, orderer_mail, extras) 
+            VALUES (:hash, :menu_id, :orderer_name, :orderer_mail, :extras)"
+        );
 
         $stmt->bindParam(':hash', $hash);
         $stmt->bindParam(':menu_id', $menuId);
