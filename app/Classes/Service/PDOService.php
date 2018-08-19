@@ -193,7 +193,7 @@ class PDOService extends PDO
 
     public function validateMailAdressess(array $mailAdresses)
     {
-        if (count($mailAdresses) < 51) {
+        if (count($mailAdresses) > 50) {
             return false;
         }
 
