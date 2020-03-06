@@ -3,7 +3,7 @@
         "slim/slim": "^3.0",
         "twig/twig": "^2.0",
         "slim/twig-view": "^2.3",
-        "phpmailer/phpmailer": "~6.0"
+        "phpmailer/phpmailer": "^6.0.6"
     },
     "autoload": {
         "psr-4": {"FVV\\Orderli\\" : "app/Classes/"}
